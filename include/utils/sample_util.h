@@ -3,5 +3,5 @@
 
 void sample_util_function();
 
-#endif // SAMPLE_UTIL_H
+#endif 
 
