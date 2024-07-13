@@ -29,8 +29,9 @@ TEST_QUANTUM_CRYPTO_DIR = $(TEST_DIR)/test_quantum_cryptography
 TEST_STREAM_CIPHERS_DIR = $(TEST_DIR)/test_stream_ciphers
 TEST_UTILS_DIR = $(TEST_DIR)/test_utils
 
-# Target executable
+# Target executables
 TARGET = $(BIN_DIR)/cryptology_algorithms
+TEST_TARGET = $(BIN_DIR)/test
 
 # Source files
 SRCS = $(wildcard $(BLOCK_CIPHERS_DIR)/*.cpp) \
@@ -53,7 +54,7 @@ TEST_SRCS = $(wildcard $(TEST_BLOCK_CIPHERS_DIR)/*.cpp) \
             $(wildcard $(TEST_QUANTUM_CRYPTO_DIR)/*.cpp) \
             $(wildcard $(TEST_STREAM_CIPHERS_DIR)/*.cpp) \
             $(wildcard $(TEST_UTILS_DIR)/*.cpp)
-TEST_OBJS = $(TEST_SRCS:$(TEST_DIR)/%.cpp=$(OBJ_DIR)/%.o)
+TEST_OBJS = $(TEST_SRCS:$(TEST_DIR)/%.cpp=$(OBJ_DIR)/%.o) $(filter-out $(OBJ_DIR)/main.o, $(OBJS))
 
 # Create necessary directories
 $(shell mkdir -p $(OBJ_DIR) $(BIN_DIR) $(OBJ_DIR)/block_ciphers $(OBJ_DIR)/classical_ciphers $(OBJ_DIR)/hash_functions $(OBJ_DIR)/message_authentication_code $(OBJ_DIR)/public_key_cryptography $(OBJ_DIR)/quantum_cryptography $(OBJ_DIR)/stream_ciphers $(OBJ_DIR)/utils $(OBJ_DIR)/test_block_ciphers $(OBJ_DIR)/test_classical_ciphers $(OBJ_DIR)/test_hash_functions $(OBJ_DIR)/test_message_authentication_code $(OBJ_DIR)/test_public_key_cryptography $(OBJ_DIR)/test_quantum_cryptography $(OBJ_DIR)/test_stream_ciphers $(OBJ_DIR)/test_utils)
@@ -75,8 +76,8 @@ $(OBJ_DIR)/%.o: $(TEST_DIR)/%.cpp
 
 # Test target
 test: $(TEST_OBJS)
-	$(CXX) $(CXXFLAGS) -o $(BIN_DIR)/test $^
-	$(BIN_DIR)/test
+	$(CXX) $(CXXFLAGS) -o $(TEST_TARGET) $^
+	$(TEST_TARGET)
 
 # Clean target
 clean:
