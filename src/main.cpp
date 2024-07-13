@@ -1,6 +1,6 @@
 #include <iostream>
-#include "utils/sample_util.h"
-#include "utils/read_file.h"
+#include "../include/utils/sample_util.h"
+#include "../include/utils/read_file.h"
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
