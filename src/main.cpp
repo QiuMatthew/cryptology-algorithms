@@ -1,5 +1,4 @@
 #include <iostream>
-#include <ostream>
 #include "../include/utils/sample_util.h"
 #include "../include/utils/read_file.h"
 #include "../include/classical_ciphers/caesar_cipher.h"
