@@ -1,13 +1,15 @@
-from src.classical_ciphers.caesar_cipher import encrypt, decrypt
+from src.classical_ciphers.caesar_cipher import CaesarCipher
 
 def main():
     text = "hello world"
     key = 3
 
-    encrypted_text = encrypt(text, key)
+    cipher = CaesarCipher(key)
+    
+    encrypted_text = cipher.encrypt(text)
     print(f"Encrypted: {encrypted_text}")
 
-    decrypted_text = decrypt(encrypted_text, key)
+    decrypted_text = cipher.decrypt(encrypted_text)
     print(f"Decrypted: {decrypted_text}")
 
 if __name__ == "__main__":
