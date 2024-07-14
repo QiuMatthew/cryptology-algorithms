@@ -1,3 +1,4 @@
+# Cpp
 # Prerequisites
 *.d
 
@@ -31,3 +32,8 @@
 *.out
 *.app
 bin/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
