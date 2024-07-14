@@ -4,9 +4,9 @@ Implementations of well-known cryptology algorithms. Yet not completed.
 ## Algorithm List
 - Substitution Cipher
     - [x] Caesar Cipher
-    - [ ] Affine Cipher
-    - [ ] Hill Cipher
-    - [ ] Monoalphabetic Cipher
+    - [x] Affine Cipher
+    - [x] Hill Cipher
+    - [x] Monoalphabetic Cipher
     - [ ] Playfair Cipher
     - [ ] Vigenere Cipher
     - [ ] Autokey Cipher
