@@ -1,4 +1,9 @@
 class CaesarCipher:
+    '''
+    Key: key
+    Encrypt: c = p + key mod 26
+    Decrypt: p = c - key mod 26
+    '''
     def __init__(self, key):
         self.key = int(key)
         
