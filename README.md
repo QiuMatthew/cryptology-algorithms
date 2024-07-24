@@ -7,9 +7,8 @@ Implementations of well-known cryptology algorithms. Yet not completed.
     - [x] Affine Cipher
     - [x] Hill Cipher
     - [x] Monoalphabetic Cipher
-    - [ ] Playfair Cipher
-    - [ ] Vigenere Cipher
-    - [ ] Autokey Cipher
+    - [x] Playfair Cipher
+    - [x] Vigenere Cipher
     - [ ] Autokey Cipher
 - Permutation Cipher
     - [ ] Rail Fence Cipher
