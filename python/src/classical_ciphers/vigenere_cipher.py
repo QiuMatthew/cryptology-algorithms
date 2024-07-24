@@ -9,7 +9,7 @@ class VigenereCipher:
         self.keylength = len(self.keyword)
 
     def preprocess_text(self, text):
-        text.replace(" ", "")
+        text = text.replace(" ", "")
         for char in text:
             if not char.isalpha():
                 raise ValueError("text must be alphabetic only")
