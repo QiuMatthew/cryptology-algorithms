@@ -9,7 +9,7 @@ Implementations of well-known cryptology algorithms. Yet not completed.
     - [x] Monoalphabetic Cipher
     - [x] Playfair Cipher
     - [x] Vigenere Cipher
-    - [ ] Autokey Cipher
+    - [x] Autokey Cipher
 - Permutation Cipher
     - [ ] Rail Fence Cipher
     - [ ] Row Transposition Cipher
