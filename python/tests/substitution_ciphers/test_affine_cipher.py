@@ -5,7 +5,7 @@ import pytest
 # Add the src directory to the Python path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
 
-from classical_ciphers.affine_cipher import AffineCipher
+from substitution_ciphers.affine_cipher import AffineCipher
 
 def test_encrypt():
     cipher = AffineCipher(3, 2)
