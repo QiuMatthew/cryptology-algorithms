@@ -15,9 +15,12 @@ class AutokeyCipher:
         ciphertext = ""
         for i, char in enumerate(plaintext):
             if i < len(self.keyword):
-                ciphertext += chr(ord(char) + ord(self.keyword[i]) - ord("A"))
+                shifted = ord(char) + ord(self.keyword[i]) - ord("A")
             else:
-                ciphertext += chr(ord(char) + ord(plaintext[i - len(self.keyword)]) - ord("A"))
+                shifted = ord(char) + ord(plaintext[i - len(self.keyword)]) - ord("A")
+            if shifted > ord("Z"):
+                shifted -= 26
+            ciphertext += chr(shifted)
         return ciphertext
 
     def decrypt(self, ciphertext):
@@ -25,13 +28,11 @@ class AutokeyCipher:
         for i, char in enumerate(ciphertext):
             if i < len(self.keyword):
                 shifted = ord(char) - ord(self.keyword[i]) + ord('A')
-                if shifted < ord('A'):
-                    shifted += 26
             else:
                 shifted = ord(char) - ord(plaintext[i - len(self.keyword)]) + ord('A')
-                if shifted < ord('A'):
-                    shifted += 26
-            plaintext += char(shifted)
+            if shifted < ord('A'):
+                shifted += 26
+            plaintext += chr(shifted)
         return plaintext
 
 if __name__ == "__main__":
