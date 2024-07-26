@@ -12,7 +12,7 @@ Implementations of well-known cryptology algorithms. Yet not completed.
     - [x] Autokey Cipher
 - Permutation Cipher
     - [x] Rail Fence Cipher
-    - [ ] Row Transposition Cipher
+    - [x] Columnar Transposition Cipher
 - Block Cipher
     - [ ] DES
     - [ ] Triple-DES
