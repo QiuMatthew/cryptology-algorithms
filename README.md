@@ -11,7 +11,7 @@ Implementations of well-known cryptology algorithms. Yet not completed.
     - [x] Vigenere Cipher
     - [x] Autokey Cipher
 - Permutation Cipher
-    - [ ] Rail Fence Cipher
+    - [x] Rail Fence Cipher
     - [ ] Row Transposition Cipher
 - Block Cipher
     - [ ] DES
