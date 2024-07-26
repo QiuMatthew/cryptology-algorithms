@@ -13,6 +13,7 @@ Implementations of well-known cryptology algorithms. Yet not completed.
 - Permutation Cipher
     - [x] Rail Fence Cipher
     - [x] Columnar Transposition Cipher
+    - [x] Matrix Transposition Cipher
 - Block Cipher
     - [ ] DES
     - [ ] Triple-DES
