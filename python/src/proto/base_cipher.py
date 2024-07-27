@@ -1,0 +1,14 @@
+from abc import ABC, abstractmethod
+
+class BaseCipher(ABC):
+    def __init__(self, key) -> None:
+        self.key = key
+
+    @abstractmethod
+    def encrypt(self, plaintext):
+        pass
+
+    @abstractmethod
+    def decrypt(self, plaintext):
+        pass
+
