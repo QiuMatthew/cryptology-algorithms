@@ -5,10 +5,10 @@ class BaseCipher(ABC):
         self.key = key
 
     @abstractmethod
-    def encrypt(self, plaintext):
+    def encrypt(self, plaintext) -> str:
         pass
 
     @abstractmethod
-    def decrypt(self, plaintext):
+    def decrypt(self, ciphertext) -> str:
         pass
 
