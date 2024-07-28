@@ -3,9 +3,9 @@ import os
 import pytest
 
 # Add the src directory to the Python path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
-from substitution_ciphers.playfair_cipher import PlayfairCipher
+from src.substitution_ciphers.playfair_cipher import PlayfairCipher
 
 def test_playfair_cipher():
     keyword = "MONARCHY"

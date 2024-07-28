@@ -1,4 +1,6 @@
-class CaesarCipher:
+from ..proto.substitution_cipher import SubstitutionCipher
+
+class CaesarCipher(SubstitutionCipher):
     '''
     Key: key
     Encrypt: c = p + key mod 26

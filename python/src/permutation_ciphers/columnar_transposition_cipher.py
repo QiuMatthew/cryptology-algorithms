@@ -1,4 +1,6 @@
-class ColumnarTranspositionCipher:
+from ..proto.permutation_cipher import PermutationCipher
+
+class ColumnarTranspositionCipher(PermutationCipher):
     def __init__(self, keyword):
         self.keyword = keyword
         self.row_count = 0

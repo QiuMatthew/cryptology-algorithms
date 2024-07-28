@@ -3,9 +3,9 @@ import os
 import pytest
 
 # Add the src directory to the Python path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
-from permutation_ciphers.rail_fence_cipher import RailFenceCipher
+from src.permutation_ciphers.rail_fence_cipher import RailFenceCipher
 
 def test_rail_fence_cipher():
     row_count = 2

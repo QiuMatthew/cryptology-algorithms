@@ -1,4 +1,6 @@
-class VigenereCipher:
+from ..proto.substitution_cipher import SubstitutionCipher
+
+class VigenereCipher(SubstitutionCipher):
     """
     Key: key = k_0 k_1 k_2 ... k_{n-1}
     Encrypt: c_i = p_i + k_i mod 26

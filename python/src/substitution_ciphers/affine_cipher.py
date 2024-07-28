@@ -1,4 +1,6 @@
-class AffineCipher:
+from ..proto.substitution_cipher import SubstitutionCipher
+
+class AffineCipher(SubstitutionCipher):
     '''
     Key: a, b
     Encrypt: c = ap + b mod 26

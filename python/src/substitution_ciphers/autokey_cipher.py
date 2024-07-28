@@ -1,4 +1,6 @@
-class AutokeyCipher:
+from ..proto.substitution_cipher import SubstitutionCipher
+
+class AutokeyCipher(SubstitutionCipher):
     def __init__(self, keyword):
         self.keyword = keyword.upper()
 

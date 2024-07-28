@@ -1,4 +1,6 @@
-class MonoalphabeticCipher:
+from ..proto.substitution_cipher import SubstitutionCipher
+
+class MonoalphabeticCipher(SubstitutionCipher):
     def __init__(self, key):
         if len(key) != 26:
             raise ValueError("Key string must be exactly 26 characters long")

@@ -1,7 +1,6 @@
-from sys import get_int_max_str_digits
+from ..proto.permutation_cipher import PermutationCipher
 
-
-class RailFenceCipher:
+class RailFenceCipher(PermutationCipher):
     def __init__(self, row_count):
         self.row_count = row_count
         self.col_count = 0

@@ -1,5 +1,8 @@
 from math import sqrt, ceil
-class MatrixTranspositionCipher:
+
+from ..proto.permutation_cipher import PermutationCipher
+
+class MatrixTranspositionCipher(PermutationCipher):
     def __init__(self):
         self.matrix_size = 0
 

@@ -1,6 +1,8 @@
 import numpy as np
 
-class HillCipher:
+from ..proto.substitution_cipher import SubstitutionCipher
+
+class HillCipher(SubstitutionCipher):
     """
     Key: m * m matrix
     Encrypt: C = KP mod 26

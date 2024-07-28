@@ -1,4 +1,6 @@
-class PlayfairCipher:
+from ..proto.substitution_cipher import SubstitutionCipher
+
+class PlayfairCipher(SubstitutionCipher):
     def __init__(self, keyword):
         self.keyword = keyword
         self.key_square = self.generate_key_square(keyword)
