@@ -11,7 +11,7 @@ class AffineCipher(SubstitutionCipher):
         self.keyB = b
 
     def encrypt(self, plaintext):
-        plaintext = self.preprocess_text(plaintext).lower()
+        plaintext = self.preprocess_plaintext(plaintext)
         ciphertext = ""
         for char in plaintext:
             p = ord(char) - ord('a')
@@ -20,7 +20,7 @@ class AffineCipher(SubstitutionCipher):
         return ciphertext.upper()
 
     def decrypt(self, ciphertext):
-        ciphertext = self.preprocess_text(ciphertext).upper()
+        ciphertext = self.preprocess_ciphertext(ciphertext)
         plaintext = ""
         for char in ciphertext:
             # calculate modular multiplication inverse of a

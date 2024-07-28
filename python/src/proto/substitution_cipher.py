@@ -1,15 +1,19 @@
 from .base_cipher import BaseCipher
 
 class SubstitutionCipher(BaseCipher):
-    def preprocess_text(self, text):
-        """
-        Remove spaces, numbers, commas, periods and other non-alphabetic symbols
+    '''
+    We use lowercase letters for plaintext and uppercase letters for ciphertext
+    '''
+    def preprocess_plaintext(self, text):
+        '''
+        Remove spaces, numbers and other non-alphabetic symbols
         Convert uppercase letters to lowercase
-        """
-        processed_text = ""
-        for char in text:
-            if char.isalpha():
-                processed_text += char
-        
-        return processed_text
+        '''
+        return "".join(char.lower() for char in text if char.isalpha())
 
+    def preprocess_ciphertext(self, text):
+        '''
+        Remove spaces, numbers and other non-alphabetic symbols
+        Convert lowercase letters to uppercase
+        '''
+        return "".join(char.upper() for char in text if char.isalpha())

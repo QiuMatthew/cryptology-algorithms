@@ -12,7 +12,7 @@ def test_hill_cipher():
     cipher = HillCipher(keyMatrix)
     plaintext = "Hello World"
     ciphertext = cipher.encrypt(plaintext)
-    assert cipher.decrypt(ciphertext)[:len(plaintext)] == cipher.preprocess_text(plaintext).lower()
+    assert cipher.decrypt(ciphertext)[:len(plaintext)] == cipher.preprocess_plaintext(plaintext)
 
 if __name__ == "__main__":
     pytest.main()

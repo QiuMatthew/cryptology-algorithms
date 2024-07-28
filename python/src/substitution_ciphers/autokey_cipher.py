@@ -2,11 +2,11 @@ from ..proto.substitution_cipher import SubstitutionCipher
 
 class AutokeyCipher(SubstitutionCipher):
     def __init__(self, keyword):
-        self.keyword = self.preprocess_text(keyword).upper()
+        self.keyword = keyword
         self.keylen = len(self.keyword)
 
     def encrypt(self, plaintext):
-        plaintext = self.preprocess_text(plaintext).lower()
+        plaintext = self.preprocess_plaintext(plaintext)
         ciphertext = ""
         for i, char in enumerate(plaintext):
             if i < len(self.keyword):
@@ -19,7 +19,7 @@ class AutokeyCipher(SubstitutionCipher):
         return ciphertext.upper()
 
     def decrypt(self, ciphertext):
-        ciphertext = self.preprocess_text(ciphertext).upper()
+        ciphertext = self.preprocess_ciphertext(ciphertext).upper()
         plaintext = ""
         for i, char in enumerate(ciphertext):
             if i < len(self.keyword):

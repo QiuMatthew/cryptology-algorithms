@@ -12,7 +12,7 @@ def test_autokey_cipher():
     cipher = AutokeyCipher(keyword)
     plaintext = "wearediscoveredsaveyourself"
     ciphertext = cipher.encrypt(plaintext)
-    assert(cipher.decrypt(ciphertext) == cipher.preprocess_text(plaintext))
+    assert(cipher.decrypt(ciphertext) == cipher.preprocess_plaintext(plaintext))
 
 if __name__ == "__main__":
     pytest.main()

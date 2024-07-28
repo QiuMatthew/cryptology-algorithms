@@ -13,14 +13,14 @@ class MonoalphabeticCipher(SubstitutionCipher):
         self.backward = {key[i].upper(): chr(ord('a') + i) for i in range(26)}
     
     def encrypt(self, plaintext):
-        plaintext = self.preprocess_text(plaintext).lower()
+        plaintext = self.preprocess_plaintext(plaintext)
         ciphertext = ""
         for char in plaintext:
             ciphertext += self.forward[char]
         return ciphertext
 
     def decrypt(self, ciphertext):
-        ciphertext = self.preprocess_text(ciphertext).upper()
+        ciphertext = self.preprocess_ciphertext(ciphertext)
         plaintext = ""
         for char in ciphertext:
             plaintext += self.backward[char]

@@ -10,7 +10,7 @@ class CaesarCipher(SubstitutionCipher):
         self.key = int(key)
         
     def encrypt(self, plaintext) -> str:
-        plaintext = self.preprocess_text(plaintext).lower()
+        plaintext = self.preprocess_plaintext(plaintext)
         ciphertext = ""
         for char in plaintext:
             shifted = ord(char) + self.key
@@ -20,7 +20,7 @@ class CaesarCipher(SubstitutionCipher):
         return ciphertext.upper()
 
     def decrypt(self, ciphertext) -> str:
-        ciphertext = self.preprocess_text(ciphertext).upper()
+        ciphertext = self.preprocess_ciphertext(ciphertext)
         plaintext = ""
         for char in ciphertext:
             shifted = ord(char) - self.key

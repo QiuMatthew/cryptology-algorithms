@@ -35,7 +35,7 @@ class HillCipher(SubstitutionCipher):
         return matrix_inv
 
     def encrypt(self, plaintext):
-        plaintext = self.preprocess_text(plaintext).lower()
+        plaintext = self.preprocess_plaintext(plaintext)
         n = self.key_matrix.shape[0]
         
         # Padding plaintext to fit key matrix dimensions
@@ -51,7 +51,7 @@ class HillCipher(SubstitutionCipher):
         return ciphertext
 
     def decrypt(self, ciphertext):
-        ciphertext = self.preprocess_text(ciphertext).upper()
+        ciphertext = self.preprocess_ciphertext(ciphertext)
         n = self.key_matrix.shape[0]
         
         ciphertext_numbers = [ord(char) - ord('A') for char in ciphertext]
