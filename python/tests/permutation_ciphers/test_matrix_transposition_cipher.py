@@ -11,7 +11,7 @@ def test_matrix_transposition_cipher():
     cipher = MatrixTranspositionCipher()
     plaintext = "meetmeafterthetogaparty"
     ciphertext = cipher.encrypt(plaintext)
-    assert(cipher.decrypt(ciphertext) == cipher.preprocess_text(plaintext))
+    assert(cipher.decrypt(ciphertext) == cipher.preprocess_plaintext(plaintext))
 
 if __name__ == "__main__":
     pytest.main()

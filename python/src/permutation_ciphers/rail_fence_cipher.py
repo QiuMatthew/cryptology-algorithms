@@ -12,7 +12,6 @@ class RailFenceCipher(PermutationCipher):
         else:
             row_offset = self.row_count - row - 2
         return col_offset + row_offset
-        
 
     def encrypt(self, plaintext):
         # corner case

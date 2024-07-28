@@ -6,12 +6,12 @@ class MatrixTranspositionCipher(PermutationCipher):
     def __init__(self):
         self.matrix_size = 0
 
-    def preprocess_text(self, text):
+    def preprocess_plaintext(self, text):
         return text + "x" * (int(pow(self.matrix_size, 2)) - len(text))
 
     def encrypt(self, plaintext):
         self.matrix_size = ceil(sqrt(len(plaintext)))
-        plaintext = self.preprocess_text(plaintext)
+        plaintext = self.preprocess_plaintext(plaintext)
         matrix = [[plaintext[row_index * self.matrix_size + col_index] for col_index in range(self.matrix_size)] for row_index in range(self.matrix_size)]
 
         ciphertext = ""
