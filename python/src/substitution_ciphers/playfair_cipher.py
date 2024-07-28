@@ -16,21 +16,21 @@ class PlayfairCipher(SubstitutionCipher):
                 key_square += char
         return [list(key_square[i:i+5]) for i in range(0, 25, 5)]
     
-    def preprocess_text(self, text):
-        # Use upper case only
-        text = text.upper().replace("J", "I").replace(" ", "")
+    def preprocess_plaintext(self, text):
+        text =  "".join(char.lower() for char in text if char.isalpha()).replace('j', 'i')
         processed_text = ""
         i = 0
         while i < len(text):
             processed_text += text[i]
             if i + 1 < len(text) and text[i] == text[i + 1]:
-                processed_text += "X"
+                processed_text += "x"
             elif i + 1 < len(text):
                 processed_text += text[i + 1]
                 i += 1
             i += 1
         if len(processed_text) % 2 != 0:
-            processed_text += "X"
+            processed_text += "x"
+
         return processed_text
 
     def find_position(self, char):
@@ -41,8 +41,8 @@ class PlayfairCipher(SubstitutionCipher):
         raise ValueError(f"Character {char} not found in key square")
 
     def encrypt_pair(self, a, b):
-        row_a, col_a = self.find_position(a)
-        row_b, col_b = self.find_position(b)
+        row_a, col_a = self.find_position(a.upper())
+        row_b, col_b = self.find_position(b.upper())
         if row_a == row_b:
             return self.key_square[row_a][(col_a + 1) % 5] + self.key_square[row_b][(col_b + 1) % 5]
         elif col_a == col_b:
@@ -61,17 +61,18 @@ class PlayfairCipher(SubstitutionCipher):
             return self.key_square[row_a][col_b] + self.key_square[row_b][col_a]
 
     def encrypt(self, plaintext):
-        plaintext = self.preprocess_text(plaintext)
+        plaintext = self.preprocess_plaintext(plaintext)
         ciphertext = ""
         for i in range(0, len(plaintext), 2):
             ciphertext += self.encrypt_pair(plaintext[i], plaintext[i + 1])
-        return ciphertext
+        return ciphertext.upper()
 
     def decrypt(self, ciphertext):
+        ciphertext = self.preprocess_ciphertext(ciphertext)
         plaintext = ""
         for i in range(0, len(ciphertext), 2):
             plaintext += self.decrypt_pair(ciphertext[i], ciphertext[i + 1])
-        return plaintext
+        return plaintext.lower()
 
 if __name__ == "__main__":
     cipher = PlayfairCipher("MONARCHY")
