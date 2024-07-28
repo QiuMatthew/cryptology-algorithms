@@ -9,36 +9,23 @@ class CaesarCipher(SubstitutionCipher):
     def __init__(self, key):
         self.key = int(key)
         
-    def encrypt(self, plaintext):
+    def encrypt(self, plaintext) -> str:
+        plaintext = self.preprocess_text(plaintext).lower()
         ciphertext = ""
         for char in plaintext:
-            if char.isalpha():
-                shifted = ord(char) + self.key
-                if char.islower():
-                    if shifted > ord('z'):
-                        shifted -= 26
-                    ciphertext += chr(shifted)
-                elif char.isupper():
-                    if shifted > ord('Z'):
-                        shifted -= 26
-                    ciphertext += chr(shifted)
-            else:
-                ciphertext += char
-        return ciphertext
+            shifted = ord(char) + self.key
+            if shifted > ord('z'):
+                shifted -= 26
+            ciphertext += chr(shifted)
+        return ciphertext.upper()
 
-    def decrypt(self, ciphertext):
+    def decrypt(self, ciphertext) -> str:
+        ciphertext = self.preprocess_text(ciphertext).upper()
         plaintext = ""
         for char in ciphertext:
-            if char.isalpha():
-                shifted = ord(char) - self.key
-                if char.islower():
-                    if shifted < ord('a'):
-                        shifted += 26
-                    plaintext += chr(shifted)
-                elif char.isupper():
-                    if shifted < ord('A'):
-                        shifted += 26
-                    plaintext += chr(shifted)
-            else:
-                plaintext += char
-        return plaintext
+            shifted = ord(char) - self.key
+            if shifted < ord('A'):
+                shifted += 26
+            plaintext += chr(shifted)
+        return plaintext.lower()
+
