@@ -12,7 +12,7 @@ def test_columnar_transposition_cipher():
     cipher = ColumnarTranspositionCipher(keyword)
     plaintext = "attackpostponeduntiltwoam"
     ciphertext = cipher.encrypt(plaintext)
-    assert(cipher.decrypt(ciphertext) == cipher.preprocess_text(plaintext))
+    assert(cipher.decrypt(ciphertext) == cipher.preprocess_plaintext(plaintext))
 
 if __name__ == "__main__":
     pytest.main()

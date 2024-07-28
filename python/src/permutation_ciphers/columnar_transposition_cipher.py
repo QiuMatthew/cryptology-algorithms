@@ -5,13 +5,14 @@ class ColumnarTranspositionCipher(PermutationCipher):
         self.keyword = keyword
         self.row_count = 0
 
-    def preprocess_text(self, text):
-        # add padding
-        return text + "x" * (self.row_count * len(self.keyword) - len(text))
+    def preprocess_plaintext(self, text):
+        preprocessed_text = "".join(char.lower() for char in text if char.isalpha())
+        preprocessed_text += "x" * (self.row_count * len(self.keyword) - len(text))
+        return preprocessed_text
 
     def encrypt(self, plaintext):
         self.row_count = (len(plaintext) - 1) // len(self.keyword) + 1
-        plaintext = self.preprocess_text(plaintext)
+        plaintext = self.preprocess_plaintext(plaintext)
 
         # Fill in the table
         table = [[plaintext[len(self.keyword) * row + col] for col in range(len(self.keyword))] for row in range(self.row_count)]
@@ -22,10 +23,11 @@ class ColumnarTranspositionCipher(PermutationCipher):
             for row in table:
                 ciphertext += row[col_index]
 
-        return ciphertext
+        return ciphertext.upper()
 
     def decrypt(self, ciphertext):
         self.row_count = (len(ciphertext) - 1) // len(self.keyword) + 1
+        ciphertext = self.preprocess_ciphertext(ciphertext)
         
         sorted_indices = sorted(range(len(self.keyword)), key=lambda x: self.keyword[x])
         table = [["\0" for _ in range(len(self.keyword))] for _ in range(self.row_count)]
@@ -42,7 +44,7 @@ class ColumnarTranspositionCipher(PermutationCipher):
             for col_index in range(len(self.keyword)):
                 plaintext += row[col_index]
 
-        return plaintext
+        return plaintext.lower()
 
 if __name__ == "__main__":
     keyword = "dcabefg"
