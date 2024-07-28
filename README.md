@@ -18,9 +18,6 @@ Implementations of well-known cryptology algorithms. Yet not completed.
     - [ ] DES
     - [ ] Triple-DES
     - [ ] AES
-    - [ ] Blowfish
-    - [ ] IDEA (International Data Encryption Algorithm)
-    - [ ] RC5
 - Stream Cipher
     - [ ] RC4
     - [ ] ChaCha20
