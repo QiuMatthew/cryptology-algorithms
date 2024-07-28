@@ -23,11 +23,10 @@ class ColumnarTranspositionCipher(PermutationCipher):
             for row in table:
                 ciphertext += row[col_index]
 
-        return ciphertext.upper()
+        return ciphertext
 
     def decrypt(self, ciphertext):
         self.row_count = (len(ciphertext) - 1) // len(self.keyword) + 1
-        ciphertext = self.preprocess_ciphertext(ciphertext)
         
         sorted_indices = sorted(range(len(self.keyword)), key=lambda x: self.keyword[x])
         table = [["\0" for _ in range(len(self.keyword))] for _ in range(self.row_count)]
@@ -44,7 +43,7 @@ class ColumnarTranspositionCipher(PermutationCipher):
             for col_index in range(len(self.keyword)):
                 plaintext += row[col_index]
 
-        return plaintext.lower()
+        return plaintext
 
 if __name__ == "__main__":
     keyword = "dcabefg"

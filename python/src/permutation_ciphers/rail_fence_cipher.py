@@ -14,15 +14,14 @@ class RailFenceCipher(PermutationCipher):
         return col_offset + row_offset
 
     def encrypt(self, plaintext):
-        # corner case
+        # Corner case
         if self.row_count == 1:
             return plaintext
-
-        # for n row and m column, we have (m - 1)(n - 1) + 1 <= len(plaintext) < m(n - 1) + 1
+        # For n row and m column, we have (m - 1)(n - 1) + 1 <= len(plaintext) < m(n - 1) + 1
         self.col_count = (len(plaintext) - 2) // (self.row_count - 1) + 1
         print(f"letter_count = {len(plaintext)}, col_count = {self.col_count}")
         table = [["\0" for _ in range(self.col_count)] for _ in range(self.row_count)]
-
+        # Put plaintext in table
         for i, char in enumerate(plaintext):
             if i == 0:
                 table[0][0] = plaintext[0]
@@ -33,31 +32,27 @@ class RailFenceCipher(PermutationCipher):
                 row_index = row_offset + 1
             else:
                 row_index = self.row_count - row_offset - 2
-            # print(row_index, col_index)
             table[row_index][col_index] = char
-
-        # print(table)
-
+        # Read table row by row
         ciphertext = ""
         for row in table:
             for char in row:
                 if char != '\0':
                     ciphertext += char
-
         return ciphertext
 
     def decrypt(self, ciphertext):
-        # corner case
+        # Corner case
         if self.row_count == 1:
             return ciphertext
-
+        # For n row and m column, we have (m - 1)(n - 1) + 1 <= len(plaintext) < m(n - 1) + 1
         self.col_count = (len(ciphertext) - 2) // (self.row_count - 1) + 1
         table = [["\0" for _ in range(self.col_count)] for _ in range(self.row_count)]
-        
+        # Put ciphertext in table
         table[0][0] = ciphertext[0]
         row, col, i = 0, 1, 1
         while row < self.row_count:
-            # first row
+            # First row
             if row == 0:
                 while col < self.col_count - 1:
                     table[row][col] = ciphertext[i]
@@ -69,8 +64,7 @@ class RailFenceCipher(PermutationCipher):
                     i += 1
                 col = 0
                 row += 1
-                # print("first row done")
-            # last row
+            # Last row
             elif row == self.row_count - 1:
                 while col < self.col_count:
                     table[row][col] = ciphertext[i]
@@ -79,8 +73,7 @@ class RailFenceCipher(PermutationCipher):
                     if i >= len(ciphertext):
                         break
                 row += 1
-                # print("last row done")
-            # rows in the middle
+            # Rows in the middle
             else:
                 while col < self.col_count - 1:
                     table[row][col] = ciphertext[i]
@@ -92,9 +85,7 @@ class RailFenceCipher(PermutationCipher):
                     i += 1
                 col = 0
                 row += 1
-                # print(f"No.{row + 1} row done")
-        # print(table)
-        
+        # Read table in fence order
         plaintext = table[0][0]
         for col in range(self.col_count):
             for row_offset in range(self.row_count - 1):
@@ -104,9 +95,7 @@ class RailFenceCipher(PermutationCipher):
                     plaintext += table[self.row_count - row_offset - 2][col]
                 if len(plaintext) == len(ciphertext):
                     return plaintext
-
-        # NOTE: Maybe it's better to raise an error
-        return plaintext
+        raise ValueError("Unable to get enough plaintext characters in table")
 
 if __name__ == "__main__":
     row_count = 5
