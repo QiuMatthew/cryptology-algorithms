@@ -10,9 +10,9 @@ from src.substitution_ciphers.hill_cipher import HillCipher
 def test_hill_cipher():
     keyMatrix = [[7, 8], [11, 11]]
     cipher = HillCipher(keyMatrix)
-    plaintext = "HELLO"
+    plaintext = "Hello World"
     ciphertext = cipher.encrypt(plaintext)
-    assert cipher.decrypt(ciphertext)[:len(plaintext)] == plaintext
+    assert cipher.decrypt(ciphertext)[:len(plaintext)] == cipher.preprocess_text(plaintext).lower()
 
 if __name__ == "__main__":
     pytest.main()
