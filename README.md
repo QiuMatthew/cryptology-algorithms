@@ -15,7 +15,7 @@ Implementations of well-known cryptology algorithms. Yet not completed.
     - [x] Columnar Transposition Cipher
     - [x] Matrix Transposition Cipher
 - Block Cipher
-    - [ ] DES
+    - [x] DES
     - [ ] Triple-DES
     - [ ] AES
 - Stream Cipher
