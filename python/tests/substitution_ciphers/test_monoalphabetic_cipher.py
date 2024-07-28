@@ -11,13 +11,13 @@ def test_encryption():
     key = "DKVQFIBJWPESCXHTMYAUOLRGZN"
     cipher = MonoalphabeticCipher(key)
     plaintext = "if we wish to replace letters"
-    assert cipher.encrypt(plaintext) == "wi rf rwaj uh yftsdvf sfuufya"
+    assert cipher.encrypt(plaintext) == "WIRFRWAJUHYFTSDVFSFUUFYA"
 
 def test_decryption():
     key = "DKVQFIBJWPESCXHTMYAUOLRGZN"
     cipher = MonoalphabeticCipher(key)
-    ciphertext = "wi rf rwaj uh yftsdvf sfuufya"
-    assert cipher.decrypt(ciphertext) == "if we wish to replace letters"
+    ciphertext = "WIRFRWAJUHYFTSDVFSFUUFYA"
+    assert cipher.decrypt(ciphertext) == "ifwewishtoreplaceletters"
 
 if __name__ == "__main__":
     pytest.main()
