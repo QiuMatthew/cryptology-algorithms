@@ -13,7 +13,7 @@ IP = [
 ]
 
 # Final Permutation Table
-# NOTE: This is the inverse of IP table
+# NOTE: This is the inverse of IP table, and it's pretty regular :)
 FP = [
     40, 8, 48, 16, 56, 24, 64, 32,
     39, 7, 47, 15, 55, 23, 63, 31,
@@ -135,3 +135,105 @@ LEFT_ROTATIONS = [
     1, 2, 2, 2, 2, 2, 2, 1
 ]
 
+class DESCipher(BlockCipher):
+    def __init__(self, key: str) -> None:
+        super().__init__(key)
+        self.round_keys = self.generate_round_keys(key)
+
+    def generate_round_keys(self, key: str) -> list[str]:
+        key = self.permute(PC1, self._str_to_bin(key)[:64])
+        left, right = key[:28], key[28:]
+        round_keys = []
+
+        for rotation in LEFT_ROTATIONS:
+            left = left[rotation:] + left[:rotation]
+            right = right[rotation:] + right[:rotation]
+            round_keys.append(self.permute(PC2, left + right))
+
+        return round_keys
+
+    def permute(self, table: list[int], block: str) -> str:
+        return ''.join(block[i - 1] for i in table)
+
+    def encrypt(self, plaintext: str) -> str:
+        '''
+        Encryption Process
+        Input: readable plaintext
+        Output: hexadecimal ciphertext
+        '''
+        binary_plaintext = self._str_to_bin(plaintext)
+        # Initial Permutation
+        permuted_text = self.initial_permutation(binary_plaintext)
+        # 16 rounds of processing
+        processed_text = self.process(permuted_text, self.round_keys)
+        # Final Permutation
+        ciphertext = self.final_permutation(processed_text)
+        hex_ciphertext = self._bin_to_hex(ciphertext)
+        return hex_ciphertext
+
+    def decrypt(self, ciphertext: str) -> str:
+        '''
+        Decryption Process
+        Input: hexadecimal ciphertext
+        Output: readable plaintext
+        '''
+        binary_ciphertext = self._hex_to_bin(ciphertext)
+        # Initial Permutation
+        permuted_text = self.initial_permutation(binary_ciphertext)
+        # 16 rounds of processing
+        processed_text = self.process(permuted_text, self.round_keys[::-1])
+        # Final Permutation
+        plaintext_binary = self.final_permutation(processed_text)
+        plaintext = self._bin_to_str(plaintext_binary)
+        return plaintext
+
+    def initial_permutation(self, text: str) -> str:
+        return self.permute(IP, text)
+
+    def final_permutation(self, text: str) -> str:
+        return self.permute(FP, text)
+
+    def process(self, text: str, round_keys: list[str]) -> str:
+        left, right = text[:32], text[32:]
+        for round_key in round_keys:
+            expanded_right = self.permute(E, right)
+            xored = self._xor(expanded_right, round_key)
+            substituted = self._substitute(xored)
+            permuted = self.permute(P, substituted)
+            left, right = right, self._xor(left, permuted)
+        return right + left
+
+    def _substitute(self, text: str) -> str:
+        result = []
+        for i in range(8):
+            block = text[i*6:(i+1)*6]
+            row = int(block[0] + block[-1], 2)
+            col = int(block[1:5], 2)
+            result.append(format(S_BOXES[i][row][col], '04b'))
+        return ''.join(result)
+
+    def _xor(self, a: str, b: str) -> str:
+        return ''.join(str(int(x) ^ int(y)) for x, y in zip(a, b))
+
+    def _str_to_bin(self, text: str) -> str:
+        return ''.join(format(ord(char), '08b') for char in text)
+
+    def _bin_to_hex(self, binary: str) -> str:
+        hex_string = hex(int(binary, 2))[2:]
+        return hex_string.upper()
+
+    def _hex_to_bin(self, hex_string: str) -> str:
+        return bin(int(hex_string, 16))[2:].zfill(64)
+
+    def _bin_to_str(self, binary: str) -> str:
+        chars = [chr(int(binary[i:i+8], 2)) for i in range(0, len(binary), 8)]
+        return ''.join(chars)
+
+if __name__ == "__main__":
+    key = "yjsnpy64"
+    des = DESCipher(key)
+    plaintext = "64bblock"
+    encrypted = des.encrypt(plaintext)
+    print(f"Encrypted: {encrypted}")
+    decrypted = des.decrypt(encrypted)
+    print(f"Decrypted: {decrypted}")
