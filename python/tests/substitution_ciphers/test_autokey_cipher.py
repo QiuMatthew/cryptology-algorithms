@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../.
 from src.substitution_ciphers.autokey_cipher import AutokeyCipher
 
 def test_autokey_cipher():
-    keyword = "deceptive"
+    keyword = "DECEPTIVE"
     cipher = AutokeyCipher(keyword)
     plaintext = "wearediscoveredsaveyourself"
     ciphertext = cipher.encrypt(plaintext)

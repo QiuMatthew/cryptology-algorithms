@@ -2,30 +2,24 @@ from ..proto.substitution_cipher import SubstitutionCipher
 
 class AutokeyCipher(SubstitutionCipher):
     def __init__(self, keyword):
-        self.keyword = keyword.upper()
-
-    def preprocess_text(self, text):
-        text = text.replace(" ", "")
-        for char in text:
-            if not char.isalpha():
-                raise ValueError("text must be alphabetic only")
-        text = text.upper()
-        return text
+        self.keyword = self.preprocess_text(keyword).upper()
+        self.keylen = len(self.keyword)
 
     def encrypt(self, plaintext):
-        plaintext = self.preprocess_text(plaintext)
+        plaintext = self.preprocess_text(plaintext).lower()
         ciphertext = ""
         for i, char in enumerate(plaintext):
             if i < len(self.keyword):
                 shifted = ord(char) + ord(self.keyword[i]) - ord("A")
             else:
-                shifted = ord(char) + ord(plaintext[i - len(self.keyword)]) - ord("A")
-            if shifted > ord("Z"):
+                shifted = ord(char) + ord(plaintext[i - len(self.keyword)]) - ord("a")
+            if shifted > ord("z"):
                 shifted -= 26
             ciphertext += chr(shifted)
-        return ciphertext
+        return ciphertext.upper()
 
     def decrypt(self, ciphertext):
+        ciphertext = self.preprocess_text(ciphertext).upper()
         plaintext = ""
         for i, char in enumerate(ciphertext):
             if i < len(self.keyword):
@@ -35,7 +29,7 @@ class AutokeyCipher(SubstitutionCipher):
             if shifted < ord('A'):
                 shifted += 26
             plaintext += chr(shifted)
-        return plaintext
+        return plaintext.lower()
 
 if __name__ == "__main__":
     keyword = "deceptive"
