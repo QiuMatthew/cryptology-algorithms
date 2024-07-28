@@ -8,49 +8,27 @@ class VigenereCipher(SubstitutionCipher):
     """
     def __init__(self, keyword) -> None:
         self.keyword = keyword.upper()
-        self.keylength = len(self.keyword)
-
-    def preprocess_text(self, text):
-        text = text.replace(" ", "")
-        for char in text:
-            if not char.isalpha():
-                raise ValueError("text must be alphabetic only")
-        return text
+        self.keylen = len(self.keyword)
 
     def encrypt(self, plaintext):
-        plaintext = self.preprocess_text(plaintext)
+        plaintext = self.preprocess_plaintext(plaintext)
         ciphertext = ""
         for i, char in enumerate(plaintext):
-            if char.isalpha():
-                shifted = ord(char) + ord(self.keyword[i % self.keylength]) - ord('A')
-                if char.islower():
-                    if shifted > ord('z'):
-                        shifted -= 26
-                    ciphertext += chr(shifted)
-                elif char.isupper():
-                    if shifted > ord('Z'):
-                        shifted -= 26
-                    ciphertext += chr(shifted)
-            else:
-                ciphertext += char
-        return ciphertext
+            shifted = ord(char) + ord(self.keyword[i % self.keylen]) - ord('A')
+            if shifted > ord('z'):
+                shifted -= 26
+            ciphertext += chr(shifted)
+        return ciphertext.upper()
 
     def decrypt(self, ciphertext):
+        ciphertext = self.preprocess_ciphertext(ciphertext)
         plaintext = ""
         for i, char in enumerate(ciphertext):
-            if char.isalpha():
-                shifted = ord(char) - ord(self.keyword[i % self.keylength]) + ord('A')
-                if char.islower():
-                    if shifted < ord('a'):
-                        shifted += 26
-                    plaintext += chr(shifted)
-                elif char.isupper():
-                    if shifted < ord('A'):
-                        shifted += 26
-                    plaintext += chr(shifted)
-            else:
-                plaintext += char
-        return plaintext
+            shifted = ord(char) - ord(self.keyword[i % self.keylen]) + ord('A')
+            if shifted < ord('A'):
+                shifted += 26
+            plaintext += chr(shifted)
+        return plaintext.lower()
 
 if __name__ == "__main__":
     keyword = "deceptive"

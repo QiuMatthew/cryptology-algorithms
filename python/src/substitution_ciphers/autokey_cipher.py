@@ -9,10 +9,10 @@ class AutokeyCipher(SubstitutionCipher):
         plaintext = self.preprocess_plaintext(plaintext)
         ciphertext = ""
         for i, char in enumerate(plaintext):
-            if i < len(self.keyword):
+            if i < self.keylen:
                 shifted = ord(char) + ord(self.keyword[i]) - ord("A")
             else:
-                shifted = ord(char) + ord(plaintext[i - len(self.keyword)]) - ord("a")
+                shifted = ord(char) + ord(plaintext[i - self.keylen]) - ord("a")
             if shifted > ord("z"):
                 shifted -= 26
             ciphertext += chr(shifted)
@@ -22,10 +22,10 @@ class AutokeyCipher(SubstitutionCipher):
         ciphertext = self.preprocess_ciphertext(ciphertext).upper()
         plaintext = ""
         for i, char in enumerate(ciphertext):
-            if i < len(self.keyword):
+            if i < self.keylen:
                 shifted = ord(char) - ord(self.keyword[i]) + ord('A')
             else:
-                shifted = ord(char) - ord(plaintext[i - len(self.keyword)]) + ord('A')
+                shifted = ord(char) - ord(plaintext[i - self.keylen]) + ord('A')
             if shifted < ord('A'):
                 shifted += 26
             plaintext += chr(shifted)
