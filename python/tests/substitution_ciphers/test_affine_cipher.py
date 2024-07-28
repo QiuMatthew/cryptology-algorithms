@@ -9,15 +9,15 @@ from src.substitution_ciphers.affine_cipher import AffineCipher
 
 def test_encrypt():
     cipher = AffineCipher(3, 2)
-    assert cipher.encrypt("crypto") == "ibwvhs"
-    assert cipher.encrypt("Hello World") == "Xojjs Qsbjl"
-    assert cipher.encrypt("yjsnpy114514") == "wdepvw114514"
+    assert cipher.encrypt("crypto") == "IBWVHS"
+    assert cipher.encrypt("Hello World") == "XOJJSQSBJL"
+    assert cipher.encrypt("yjsnpy114514") == "WDEPVW"
 
 def test_decrypt():
     cipher = AffineCipher(3, 2)
     assert cipher.decrypt("ibwvhs") == "crypto"
-    assert cipher.decrypt("Xojjs Qsbjl") == "Hello World"
-    assert cipher.decrypt("wdepvw114514") == "yjsnpy114514"
+    assert cipher.decrypt("Xojjs Qsbjl") == "helloworld"
+    assert cipher.decrypt("wdepvw114514") == "yjsnpy"
 
 if __name__ == "__main__":
     pytest.main()
