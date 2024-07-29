@@ -156,38 +156,6 @@ class DESCipher(BlockCipher):
     def permute(self, table: list[int], block: str) -> str:
         return ''.join(block[i - 1] for i in table)
 
-    def encrypt(self, plaintext: str) -> str:
-        '''
-        Encryption Process
-        Input: readable plaintext
-        Output: hexadecimal ciphertext
-        '''
-        binary_plaintext = self._str_to_bin(plaintext)
-        # Initial Permutation
-        permuted_text = self.initial_permutation(binary_plaintext)
-        # 16 rounds of processing
-        processed_text = self.process(permuted_text, self.round_keys)
-        # Final Permutation
-        ciphertext = self.final_permutation(processed_text)
-        hex_ciphertext = self._bin_to_hex(ciphertext)
-        return hex_ciphertext
-
-    def decrypt(self, ciphertext: str) -> str:
-        '''
-        Decryption Process
-        Input: hexadecimal ciphertext
-        Output: readable plaintext
-        '''
-        binary_ciphertext = self._hex_to_bin(ciphertext)
-        # Initial Permutation
-        permuted_text = self.initial_permutation(binary_ciphertext)
-        # 16 rounds of processing
-        processed_text = self.process(permuted_text, self.round_keys[::-1])
-        # Final Permutation
-        plaintext_binary = self.final_permutation(processed_text)
-        plaintext = self._bin_to_str(plaintext_binary)
-        return plaintext
-
     def initial_permutation(self, text: str) -> str:
         return self.permute(self.IP, text)
 
@@ -203,6 +171,46 @@ class DESCipher(BlockCipher):
             permuted = self.permute(self.P, substituted)
             left, right = right, self._xor(left, permuted)
         return right + left
+
+    def bin_to_bin_encrypt(self, bin_plaintext: str) -> str:
+        # Initial Permutation
+        permuted_text = self.initial_permutation(bin_plaintext)
+        # 16 rounds of processing
+        processed_text = self.process(permuted_text, self.round_keys)
+        # Final Permutation
+        bin_ciphertext = self.final_permutation(processed_text)
+        return bin_ciphertext
+
+    def encrypt(self, plaintext: str) -> str:
+        '''
+        Encryption Process
+        Input: readable plaintext
+        Output: hexadecimal ciphertext
+        '''
+        bin_plaintext = self._str_to_bin(plaintext)
+        bin_ciphertext = self.bin_to_bin_encrypt(bin_plaintext)
+        hex_ciphertext = self._bin_to_hex(bin_ciphertext)
+        return hex_ciphertext
+
+    def bin_to_bin_decrypt(self, bin_ciphertext: str) -> str:
+        # Initial Permutation
+        permuted_text = self.initial_permutation(bin_ciphertext)
+        # 16 rounds of processing
+        processed_text = self.process(permuted_text, self.round_keys[::-1])
+        # Final Permutation
+        bin_plaintext = self.final_permutation(processed_text)
+        return bin_plaintext
+
+    def decrypt(self, ciphertext: str) -> str:
+        '''
+        Decryption Process
+        Input: hexadecimal ciphertext
+        Output: readable plaintext
+        '''
+        bin_ciphertext = self._hex_to_bin(ciphertext)
+        bin_plaintext = self.bin_to_bin_decrypt(bin_ciphertext)
+        plaintext = self._bin_to_str(bin_plaintext)
+        return plaintext
 
     def _substitute(self, text: str) -> str:
         result = []
