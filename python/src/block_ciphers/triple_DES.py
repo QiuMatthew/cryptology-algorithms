@@ -28,9 +28,9 @@ if __name__ == "__main__":
     key1 = "testkey1"
     key2 = "testkey2"
     key3 = "testkey3"
-    triple_des = TripleDESCipher(key1, key2, key3)
+    cipher = TripleDESCipher(key1, key2, key3)
     plaintext = "plaintxt"
-    encrypted = triple_des.encrypt(plaintext)
+    encrypted = cipher.encrypt(plaintext)
     print(f"Encrypted: {encrypted}")
-    decrypted = triple_des.decrypt(encrypted)
+    decrypted = cipher.decrypt(encrypted)
     print(f"Decrypted: {decrypted}")

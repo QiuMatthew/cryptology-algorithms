@@ -16,7 +16,7 @@ Implementations of well-known cryptology algorithms. Yet not completed.
     - [x] Matrix Transposition Cipher
 - Block Cipher
     - [x] DES
-    - [ ] Triple-DES
+    - [x] Triple-DES
     - [ ] AES
 - Stream Cipher
     - [ ] RC4
