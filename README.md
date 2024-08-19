@@ -17,7 +17,7 @@ Implementations of well-known cryptology algorithms. Yet not completed.
 - Block Cipher
     - [x] DES
     - [x] Triple-DES
-    - [ ] AES
+    - [x] AES
 - Stream Cipher
     - [ ] RC4
     - [ ] ChaCha20
