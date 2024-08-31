@@ -1,4 +1,6 @@
-class RC4Cipher:
+from ..proto.stream_cipher import StreamCipher
+
+class RC4Cipher(StreamCipher):
     def __init__(self, key: str) -> None:
         self.key = key.encode()
         self.S = self.key_scheduling_algorithm()
