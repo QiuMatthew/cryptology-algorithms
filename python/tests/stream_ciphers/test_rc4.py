@@ -9,11 +9,11 @@ from src.stream_ciphers.rc4 import RC4Cipher
 
 def test_RC4():
     key = "yjsnpy"
-    cipher = RC4Cipher(key.encode())
+    cipher = RC4Cipher(key)
     plaintext = "datastreamwithrandomlength"
-    encrypted = cipher.encrypt(plaintext.encode())
+    encrypted = cipher.encrypt(plaintext)
     decrypted = cipher.decrypt(encrypted)
-    assert decrypted == plaintext.encode()
+    assert decrypted == plaintext
 
 if __name__ == "__main__":
     pytest.main()
