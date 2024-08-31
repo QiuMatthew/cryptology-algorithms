@@ -20,7 +20,7 @@ Implementations of well-known cryptology algorithms. Yet not completed.
     - [x] AES
 - Stream Cipher
     - [x] RC4
-- Public Key Encryption
+- Public Key Cipher
     - [ ] RSA
     - [ ] ElGamal
     - [ ] ECC (Elliptic Curve Cryptography)
