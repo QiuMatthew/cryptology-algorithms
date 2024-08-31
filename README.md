@@ -19,8 +19,7 @@ Implementations of well-known cryptology algorithms. Yet not completed.
     - [x] Triple-DES
     - [x] AES
 - Stream Cipher
-    - [ ] RC4
-    - [ ] ChaCha20
+    - [x] RC4
 - Public Key Encryption
     - [ ] RSA
     - [ ] ElGamal
